@@ -11,7 +11,7 @@ import img4 from "../assets/img4.png";
 
 const HomePage: React.FC = () => {
 
-  console.log(typeof img1);
+  // console.log(typeof img1);
   return (
     <div className=' flex flex-col justify-center items-center p-4'>
         <HeroSection />

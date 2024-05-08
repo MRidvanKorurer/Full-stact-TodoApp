@@ -1,20 +1,33 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { FaChevronDown } from "react-icons/fa";
+import { IoMenu } from "react-icons/io5";
+import { useAppDispatch, useAppSelector } from "../redux/hooks";
+import { operationFalse, operationTrue, sideBarFalse, sideBarTrue } from "../redux/slices/navbarSlice";
+import { IoIosCloseCircle } from "react-icons/io";
+import { FaChevronUp } from "react-icons/fa";
 
 const Navbar: React.FC = () => {
+  const { sideBar, operations } = useAppSelector((state) => state.navbar);
+  const dispatch = useAppDispatch();
+
+
+ 
+
+
+  // console.log(operations,"operations");
+
   return (
-    <header className=" border-b p-6">
-      <div className=" flex  justify-between items-center">
+    <header className=" border-b p-6 relative z-10">
+      <div className="flex justify-between items-center">
         <div>
           <h2 className=" font-bold text-4xl ">
             <Link to={"/"}>TodosS</Link>
           </h2>
         </div>
 
-        <div>
-          <nav className=" flex justify-center items-center gap-10 font-semibold">
-            
+        <div className="">
+          <nav className="hidden md:flex justify-center items-center gap-10 font-semibold">
             <div className=" hover:bg-orange-600 hover:text-white  p-3 rounded transition-all bg-white cursor-pointer w-24 flex justify-center items-center ">
               <Link to={"/"}>Anasayfa</Link>
             </div>
@@ -25,12 +38,79 @@ const Navbar: React.FC = () => {
 
             <div className=" flex justify-center items-center gap-1 bg-white border p-3 cursor-pointer rounded">
               <Link to={"/"}>İşlemler</Link>
-              <FaChevronDown className=" " />
+              {
+                operations ? (
+                  <FaChevronUp  onClick={() => dispatch(operationFalse())}   className=" hover:scale-125 transition-all " />
+                ) : (
+                  <FaChevronDown  onClick={() => dispatch(operationTrue())}  className=" hover:scale-125 transition-all" />
+                )
+              }
+              
             </div>
 
+            {
+              operations ? (
+                <>
+                  <div className=" absolute right-6 top-20 shadow-xl rounded border w-48">
+                    <div>
+                      <div className=" hover:bg-orange-600 hover:text-white  p-3 rounded transition-all bg-white cursor-pointer w-full flex justify-center items-center ">
+                        <Link to={"/"}>Notlarım</Link>
+                      </div>
+
+                      <div className=" hover:bg-orange-600 hover:text-white  p-3 rounded transition-all bg-white cursor-pointer w-full flex justify-center items-center ">
+                        <Link to={"/"}>Not Ekle</Link>
+                      </div>
+
+                      <div className=" hover:bg-orange-600 hover:text-white  p-3 rounded transition-all bg-white cursor-pointer w-full flex justify-center items-center ">
+                        <Link to={"/"}>Not Sil</Link>
+                      </div>
+
+                      <div className=" hover:bg-orange-600 hover:text-white  p-3 rounded transition-all bg-white cursor-pointer w-full flex justify-center items-center ">
+                        <Link to={"/"}>Not Düzenle</Link>
+                      </div>
+                    </div>
+                  </div>
+                </> 
+              ) : (null)
+            }
           </nav>
+
+          {sideBar ? (
+            <>
+              <nav className="flex justify-between flex-col w-[300px] absolute h-full font-semibold border left-0 top-2 z-20 bg-gray-100">
+                <div className=" hover:bg-orange-600 hover:text-white p-3 rounded transition-all bg-white cursor-pointer w-full flex justify-center items-center ">
+                  <Link to={"/"}>Anasayfa</Link>
+                </div>
+
+                <div className=" hover:bg-orange-600 hover:text-white  p-3 rounded transition-all bg-white cursor-pointer w-full flex justify-center items-center ">
+                  <Link to={"/"}>İletişim</Link>
+                </div>
+
+                <div onClick={() => dispatch(operationTrue())} className=" flex justify-center items-center gap-1 bg-white border p-3 cursor-pointer rounded">
+                  <Link  to={"/"}>İşlemler</Link>
+                  <FaChevronDown className=" " />
+                </div>
+              </nav>
+              <div onClick={() => dispatch(sideBarFalse())} className="absolute w-full h-full top-0 left-0"></div>
+            </>
+          ) : null}
+
+          <div
+            onClick={() => dispatch(sideBarTrue())}
+            className=" md:hidden flex justify-end items-start cursor-pointer"
+          >
+            {
+              sideBar ? (
+                <IoIosCloseCircle className=" cursor-pointer" size={28} />
+              ) : (
+                <IoMenu size={31} />
+              )
+            }
+          </div>
         </div>
       </div>
+
+      
     </header>
   );
 };
