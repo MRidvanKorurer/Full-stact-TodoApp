@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.register = void 0;
+exports.login = exports.register = void 0;
 const auth_1 = __importDefault(require("../models/auth"));
 const error_1 = __importDefault(require("../utils/error"));
 const bcrypt_1 = __importDefault(require("bcrypt"));
@@ -24,7 +24,7 @@ const register = (req, res, next) => __awaiter(void 0, void 0, void 0, function*
     try {
         const user = yield auth_1.default.findOne({ email });
         if (user) {
-            next(new error_1.default("Email adresi zaten kayıtlı", 401));
+            return next(new error_1.default("Email adresi zaten kayıtlı", 401));
         }
         const hashPassword = yield bcrypt_1.default.hash(password, 10);
         const defaultAvatar = (0, randomAvatar_1.default)();
@@ -40,3 +40,28 @@ const register = (req, res, next) => __awaiter(void 0, void 0, void 0, function*
     }
 });
 exports.register = register;
+const login = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    const { email, password } = req.body;
+    try {
+        const user = yield auth_1.default.findOne({ email });
+        if (!user) {
+            return next(new error_1.default("Email adresi hatalı", 401));
+        }
+        let comparePassword;
+        if (user) {
+            comparePassword = yield bcrypt_1.default.compare(password, user === null || user === void 0 ? void 0 : user.password);
+        }
+        if (!comparePassword) {
+            return next(new error_1.default("Şifre hatalıa", 401));
+        }
+        const token = jsonwebtoken_1.default.sign({ sub: user === null || user === void 0 ? void 0 : user._id, name: user === null || user === void 0 ? void 0 : user.name }, process.env.JWT_KEY || "", {
+            expiresIn: "7d",
+            algorithm: "HS512"
+        });
+        return new response_1.default("Giriş işlemi başarılı", user, token).success(res);
+    }
+    catch (error) {
+        throw new error_1.default("Giriş işlemi başarısız", 400);
+    }
+});
+exports.login = login;

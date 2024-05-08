@@ -15,7 +15,7 @@ export const register = async (req: Request, res: Response, next: NextFunction) 
         const user: IAuth | null = await Auth.findOne({email});
 
         if(user) {
-            next(new APIError("Email adresi zaten kayıtlı", 401));
+           return next(new APIError("Email adresi zaten kayıtlı", 401));
         }
 
         const hashPassword: string = await bcrypt.hash(password, 10);
@@ -33,5 +33,38 @@ export const register = async (req: Request, res: Response, next: NextFunction) 
 
     } catch (error) {
         throw new APIError("Kayıt İşlemi Başarısız", 400);
+    }
+}
+
+
+export const login = async (req: Request, res: Response, next: NextFunction) => {
+    const {email, password} = req.body as Pick<IAuth, "email" | "password">;
+
+    try {
+        const user: IAuth | null = await Auth.findOne({email});
+
+        if(!user) {
+            return next(new APIError("Email adresi hatalı", 401));
+        }
+        let comparePassword;
+
+        if(user) {
+            comparePassword = await bcrypt.compare(password, user?.password);
+        }
+        
+        
+        if(!comparePassword) {
+            return next(new APIError("Şifre hatalıa", 401));
+        }
+             
+        const token: string = jwt.sign({sub: user?._id, name: user?.name}, process.env.JWT_KEY || "", {
+             expiresIn: "7d",
+             algorithm: "HS512"
+         });
+
+        return new IResponse("Giriş işlemi başarılı", user, token).success(res);
+        
+    } catch (error) {
+        throw new APIError("Giriş işlemi başarısız", 400);
     }
 }

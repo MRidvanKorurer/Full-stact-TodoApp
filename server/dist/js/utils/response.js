@@ -7,15 +7,17 @@ class IResponse {
         this.token = token;
     }
     success(res) {
+        var _a;
         return res.status(200).json({
-            message: "İşlem Başarılı",
+            message: (_a = this.message) !== null && _a !== void 0 ? _a : "İşlem Başarılı",
             data: this.data,
             token: this.token
         });
     }
     created(res) {
+        var _a;
         return res.status(201).json({
-            message: "Create İşlemi Başarılı",
+            message: (_a = this.message) !== null && _a !== void 0 ? _a : "Create İşlemi Başarılı",
             data: this.data,
             token: this.token
         });

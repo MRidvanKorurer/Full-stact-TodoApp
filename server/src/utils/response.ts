@@ -15,7 +15,7 @@ class IResponse {
 
     success(res: Response) {
         return res.status(200).json({
-            message: "İşlem Başarılı",
+            message: this.message ??  "İşlem Başarılı",
             data: this.data,
             token: this.token
         })
@@ -24,7 +24,7 @@ class IResponse {
 
     created(res: Response) {
         return res.status(201).json({
-            message: "Create İşlemi Başarılı",
+            message: this.message ?? "Create İşlemi Başarılı",
             data: this.data,
             token: this.token
         })
