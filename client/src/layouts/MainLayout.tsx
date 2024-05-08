@@ -23,18 +23,18 @@ const MainLayout: React.FC<IProps> = ({ children }) => {
         {children}
 
         {
-        sideBar ? (
-          <div onClick={handleClickClickOutSide} className=" absolute top-0 left-0 w-full h-full z-0"></div>
-        ) : (null)
-      }
+          sideBar ? (
+            <div onClick={handleClickClickOutSide} className=" absolute top-0 left-0 w-full h-full z-0"></div>
+          ) : (null)
+        }
 
-      {
-        operations ? (
-          <div onClick={handleClickClickOutSide} className=" absolute top-0 left-0 w-full h-full z-0"></div>
-        ) : (
-          null
-        )
-      }
+        {
+          operations ? (
+            <div onClick={handleClickClickOutSide} className=" absolute top-0 left-0 w-full h-full z-0"></div>
+          ) : (
+            null
+          )
+        }
       <Footer />
     </div>
   );

@@ -1,7 +1,9 @@
+import "express-async-errors";
 import express, {Express} from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 import conn from "./db/connectDb";
+import errorHandlerMiddleware from "./middlewares/errorHandler";
 
 
 dotenv.config();
@@ -21,7 +23,7 @@ app.use(cors());
 
 
 // error
-
+app.use(errorHandlerMiddleware);
 
 app.listen(port, () => {
     conn();
