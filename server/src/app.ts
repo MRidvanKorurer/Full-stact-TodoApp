@@ -4,6 +4,7 @@ import cors from "cors";
 import dotenv from "dotenv";
 import conn from "./db/connectDb";
 import errorHandlerMiddleware from "./middlewares/errorHandler";
+import indexRoute from "./routes/index";
 
 
 dotenv.config();
@@ -19,7 +20,7 @@ app.use(cors());
 
 
 // routing
-
+app.use("/api", indexRoute);
 
 
 // error
