@@ -11,14 +11,8 @@ const Navbar: React.FC = () => {
   const { sideBar, operations } = useAppSelector((state) => state.navbar);
   const dispatch = useAppDispatch();
 
-
- 
-
-
-  // console.log(operations,"operations");
-
   return (
-    <header className=" border-b p-6 relative z-10">
+    <header className=" border-b p-6 relative z-10 mb-2">
       <div className="flex justify-between items-center">
         <div>
           <h2 className=" font-bold text-4xl ">
@@ -53,19 +47,23 @@ const Navbar: React.FC = () => {
                 <>
                   <div className=" absolute right-6 top-20 shadow-xl rounded border w-48">
                     <div>
-                      <div className=" hover:bg-orange-600 hover:text-white  p-3 rounded transition-all bg-white cursor-pointer w-full flex justify-center items-center ">
+                      <div className=" hover:bg-orange-600 hover:text-white  p-3 transition-all bg-white cursor-pointer w-full flex justify-center items-center ">
+                        <Link onClick={() => dispatch(operationFalse())} to={"/profile"}>Profil</Link>
+                      </div>
+
+                      <div className=" hover:bg-orange-600 hover:text-white  p-3 transition-all bg-white cursor-pointer w-full flex justify-center items-center ">
                         <Link to={"/"}>Notlarım</Link>
                       </div>
 
-                      <div className=" hover:bg-orange-600 hover:text-white  p-3 rounded transition-all bg-white cursor-pointer w-full flex justify-center items-center ">
+                      <div className=" hover:bg-orange-600 hover:text-white  p-3 transition-all bg-white cursor-pointer w-full flex justify-center items-center ">
                         <Link to={"/"}>Not Ekle</Link>
                       </div>
 
-                      <div className=" hover:bg-orange-600 hover:text-white  p-3 rounded transition-all bg-white cursor-pointer w-full flex justify-center items-center ">
+                      <div className=" hover:bg-orange-600 hover:text-white  p-3 transition-all bg-white cursor-pointer w-full flex justify-center items-center ">
                         <Link to={"/"}>Not Sil</Link>
                       </div>
 
-                      <div className=" hover:bg-orange-600 hover:text-white  p-3 rounded transition-all bg-white cursor-pointer w-full flex justify-center items-center ">
+                      <div className=" hover:bg-orange-600 hover:text-white  p-3 transition-all bg-white cursor-pointer w-full flex justify-center items-center ">
                         <Link to={"/"}>Not Düzenle</Link>
                       </div>
                     </div>

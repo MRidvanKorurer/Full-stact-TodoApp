@@ -68,3 +68,15 @@ export const login = async (req: Request, res: Response, next: NextFunction) => 
         throw new APIError("Giriş işlemi başarısız", 400);
     }
 }
+
+
+
+export const me = async (req: any, res: Response) => {
+    try {
+        const user = req.user;
+
+        return new IResponse("İşlem Başarılı, Yetkilisiniz", user).success(res);
+    } catch (error) {
+        throw new APIError("Yetki hatası, lütfen login olun", 401);
+    }
+}

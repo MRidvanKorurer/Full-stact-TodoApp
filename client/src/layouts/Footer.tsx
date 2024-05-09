@@ -2,7 +2,7 @@ import React from 'react'
 
 const Footer: React.FC = () => {
   return (
-    <footer className="flex flex-col justify-center border-t-2 space-y-5 mt-40 ">
+    <footer className="flex flex-col justify-center border-t-2 space-y-5 mt-2 ">
 
     <nav className="flex justify-center flex-wrap gap-6 text-gray-500 font-medium">
         <a className="hover:text-gray-900" href="#">Anasayfa</a>
