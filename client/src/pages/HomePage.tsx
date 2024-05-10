@@ -15,7 +15,7 @@ const HomePage: React.FC = () => {
   const {isAuth, token} = useAppSelector(state => state.auth);
 
   console.log(token,"token");
-  console.log(isAuth,"isAuth");
+  console.log(isAuth,"isAuth"); 
   return (
     <div className=' flex flex-col justify-center items-center p-4'>
         <HeroSection />

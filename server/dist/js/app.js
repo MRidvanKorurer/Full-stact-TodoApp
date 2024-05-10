@@ -10,12 +10,14 @@ const dotenv_1 = __importDefault(require("dotenv"));
 const connectDb_1 = __importDefault(require("./db/connectDb"));
 const errorHandler_1 = __importDefault(require("./middlewares/errorHandler"));
 const index_1 = __importDefault(require("./routes/index"));
+const cookie_parser_1 = __importDefault(require("cookie-parser"));
 dotenv_1.default.config();
 const app = (0, express_1.default)();
 const port = process.env.PORT || 4000;
 // middlewares
 app.use(express_1.default.json());
 app.use((0, cors_1.default)());
+app.use((0, cookie_parser_1.default)());
 // routing
 app.use("/api", index_1.default);
 // error

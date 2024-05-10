@@ -1,8 +1,42 @@
-import React from 'react'
+import React, { useState } from 'react'
 import baykus from "../assets/baykus.png";
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { IAuth } from '../types/type';
+import { useLoginMutation } from '../redux/services/authApi';
+import { message } from 'antd';
+import { createToken, isAuthTrue } from '../redux/slices/authSlice';
+import { useAppDispatch } from '../redux/hooks';
 
 const LoginPage: React.FC = () => {
+    const [login] = useLoginMutation();
+
+    const [formData, setFormData] = useState<Pick <IAuth, "email"|"password">>({
+        email: "",
+        password: ""
+    });
+
+    const dispatch = useAppDispatch();
+    const navigate = useNavigate();
+
+
+    const handleChange = (e: any) => {
+        setFormData((prev) => ({...prev, [e.target.name] : e.target.value}));
+    }
+
+    const loginFunc = (e: any) => {
+        e.preventDefault();
+        login(formData).unwrap()
+            .then(async (res) => {
+                await message.success(res.message);
+                dispatch(isAuthTrue());
+                dispatch(createToken(res.token));
+                navigate("/");
+            })
+            .catch((err) => {
+                message.error(err.data.message);
+            })
+    }
+
   return (
     <div className=' flex justify-start items-center'>
         <div className=' flex-1 h-screen flex justify-center bg-purple-700'>
@@ -16,11 +50,11 @@ const LoginPage: React.FC = () => {
                 </div>
                 <div className=' flex flex-col gap-1 w-1/2 mx-auto'>
                     <label>Email Girin</label>
-                    <input type="text" placeholder='email...' className=' border p-2 text-black rounded' />
+                    <input value={formData.email} name='email' onChange={handleChange} type="text" placeholder='email...' className=' border p-2 text-black rounded' />
                 </div>
                 <div className=' flex flex-col gap-1 w-1/2 mx-auto'>
                     <label>Şifre Girin</label>
-                    <input type="text" placeholder='şifre...' className=' border p-2 text-black rounded' />
+                    <input value={formData.password} name='password' onChange={handleChange} type="text" placeholder='şifre...' className=' border p-2 text-black rounded' />
                 </div>
                 <div className=' flex justify-start w-1/2'>
                     <div className=' flex gap-x-3'>
@@ -29,7 +63,7 @@ const LoginPage: React.FC = () => {
                     </div>
                 </div>
                 <div className=' flex flex-col gap-1 w-1/2 mx-auto'>
-                    <button className=' bg-orange-600 p-2 rounded hover:bg-orange-800 transition-all'>Giriş Yap</button>
+                    <button onClick={loginFunc} className=' bg-orange-600 p-2 rounded hover:bg-orange-800 transition-all'>Giriş Yap</button>
                 </div>
             </form>
         </div>
@@ -37,4 +71,4 @@ const LoginPage: React.FC = () => {
   )
 }
 
-export default LoginPage
+export default LoginPage;

@@ -2,13 +2,13 @@ import {PayloadAction, createSlice} from "@reduxjs/toolkit";
 
 
 interface IInitialState {
-    token: string,
+    token: any,
     isAuth: boolean
 }
 
 const initialState: IInitialState = {
     token: "",
-    isAuth: true,
+    isAuth: false,
 }
 
 
@@ -17,28 +17,21 @@ const authSlice = createSlice({
     initialState,
     reducers: {
        getToken: (state) => {
-            const token = (localStorage.getItem("token"));
+            const token = localStorage.getItem("token");
 
-            if(token) {
-                state.token = JSON.stringify(localStorage.getItem("token"));
-            }
+            state.token = token;
        },
        createToken: (state, actions: PayloadAction<string | undefined>) => {
-            const token = JSON.stringify(localStorage.setItem("token", JSON.stringify(actions.payload)));
-
-            if(token) {
-                state.token = token;
-            }
+            state.token = JSON.stringify(localStorage.setItem("token", JSON.stringify(actions.payload)));
        },
        isAuthTrue: (state) => {
         state.isAuth = true;
        },
        isAuthFalse: (state) => {
         state.isAuth = false;
-       }
+       },
     }
 });
-
 
 export const {createToken, getToken, isAuthFalse, isAuthTrue} = authSlice.actions;
 export const authReducer = authSlice.reducer;

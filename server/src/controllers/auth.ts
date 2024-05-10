@@ -28,6 +28,7 @@ export const register = async (req: Request, res: Response, next: NextFunction) 
             expiresIn: "7d",
             algorithm: "HS512"
         });
+        
 
         return new IResponse("Kayıt işlemi başarılı", newUser, token).created(res);
 

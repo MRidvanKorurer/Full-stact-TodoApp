@@ -18,12 +18,24 @@ export const authApi = createApi({
       },
     }),
 
-    me: builder.query<IAuthRes, string>({
+
+    login: builder.mutation<IAuthRes, Pick<IAuth, "email" | "password">>({
+      query: (formData) => {
+        return {
+          url: `/login`,
+          method: "POST",
+          body: formData
+        }
+      },
+    }),
+
+
+    me: builder.query<IAuthRes, any>({
       query: (token) => {
         return {
           url: `/me`,
           method: "GET",
-          headers: {Authorization: `Bearer ${token}`},
+          headers: {Authorization: `Bearer ${JSON.parse(token)}`},
         }
       },
     }),
@@ -32,4 +44,4 @@ export const authApi = createApi({
   }),
 })
 
-export const { useRegisterMutation, useMeQuery } = authApi
+export const { useRegisterMutation, useMeQuery, useLoginMutation } = authApi;

@@ -5,6 +5,7 @@ import dotenv from "dotenv";
 import conn from "./db/connectDb";
 import errorHandlerMiddleware from "./middlewares/errorHandler";
 import indexRoute from "./routes/index";
+import cookieParser from "cookie-parser";
 
 
 dotenv.config();
@@ -17,6 +18,7 @@ const port: string | number = process.env.PORT || 4000;
 // middlewares
 app.use(express.json());
 app.use(cors());
+app.use(cookieParser());
 
 
 // routing
