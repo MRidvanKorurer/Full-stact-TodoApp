@@ -8,7 +8,7 @@ import LoginPage from "./pages/LoginPage";
 import { useAppSelector } from "./redux/hooks";
 
 function App() {
-  const { isAuth } = useAppSelector((state) => state.auth);
+  // const { isAuth } = useAppSelector((state) => state.auth);
 
   return (
     <>

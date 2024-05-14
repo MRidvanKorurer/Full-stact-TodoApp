@@ -14,7 +14,8 @@ const initialState: IInitialState = {
     user: {
         name: "",
         email: "",
-        password: ""
+        password: "",
+        avatar: ""
     }
 }
 
@@ -25,7 +26,6 @@ const authSlice = createSlice({
     reducers: {
        getToken: (state) => {
             const token = localStorage.getItem("token");
-
             state.token = token;
        },
        createToken: (state, actions: PayloadAction<string | undefined>) => {
@@ -38,13 +38,20 @@ const authSlice = createSlice({
         state.isAuth = false;
        },
        saveUser: (state, actions: PayloadAction<IAuth>) => {
-        state.user.name = actions.payload.name;
-        state.user.email = actions.payload.email;
-        state.user.password = actions.payload.password;
-        localStorage.setItem("user", JSON.stringify(state.user));
+        localStorage.setItem("user", JSON.stringify(actions.payload));
        },
+       getUser: (state) => {
+        if(localStorage.getItem("user")) {
+            state.user = JSON.parse(localStorage.getItem("user"));
+            state.isAuth = true;
+        }
+       },
+       logout: (state) => {
+        localStorage.removeItem("user");
+        state.isAuth = false
+       }
     }
 });
 
-export const {createToken, getToken, isAuthFalse, isAuthTrue, saveUser} = authSlice.actions;
+export const {createToken, getToken, isAuthFalse, isAuthTrue, saveUser, getUser, logout} = authSlice.actions;
 export const authReducer = authSlice.reducer;

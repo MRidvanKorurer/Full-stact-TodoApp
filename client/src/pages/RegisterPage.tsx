@@ -6,7 +6,7 @@ import { useRegisterMutation } from '../redux/services/authApi';
 import {useNavigate} from "react-router-dom";
 import { message } from 'antd';
 import { useAppDispatch } from '../redux/hooks';
-import { createToken, isAuthTrue } from '../redux/slices/authSlice';
+import { createToken, isAuthTrue, saveUser } from '../redux/slices/authSlice';
 
 const RegisterPage: React.FC = () => {
     const [register] = useRegisterMutation();
@@ -34,6 +34,7 @@ const RegisterPage: React.FC = () => {
                 await message.success(res.message);
                 dispatch(isAuthTrue());
                 dispatch(createToken(res.token));
+                dispatch(saveUser(res.data));
                 navigate("/");
             })
             .catch((err) => {

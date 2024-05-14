@@ -1,16 +1,37 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { FaChevronDown } from "react-icons/fa";
 import { IoMenu } from "react-icons/io5";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import { operationFalse, operationTrue, sideBarFalse, sideBarTrue } from "../redux/slices/navbarSlice";
 import { IoIosCloseCircle } from "react-icons/io";
 import { FaChevronUp } from "react-icons/fa";
+import { getUser, logout } from "../redux/slices/authSlice";
+import { MdLogout } from "react-icons/md";
+import { message } from "antd";
 
 const Navbar: React.FC = () => {
   const { sideBar, operations } = useAppSelector((state) => state.navbar);
-  const {isAuth} = useAppSelector(state => state.auth);
+  const {isAuth, user} = useAppSelector(state => state.auth);
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+  
+  const handleClickLogout = () => {
+    if(window.confirm("Çıkış Yapmak İstediğinize Emin misiniz? ")) {
+      message.success("Çıkış İşlemi Başarılı");
+      dispatch(logout());
+      navigate("/");
+    }else{
+      message.error("Çkıkış İşlemi İptal Edildi");
+    }
+  }
+
+  const profileImage = user?.avatar;
+  
+
+  useEffect(() => {
+    dispatch(getUser());
+  }, [dispatch, isAuth])
 
   return (
     <header className=" border-b p-6 relative z-10 mb-2">
@@ -34,8 +55,10 @@ const Navbar: React.FC = () => {
               <>
               {
                 isAuth ? (
-                  <div className=" flex justify-center items-center gap-1 bg-white border p-3 cursor-pointer rounded">
-                    <Link to={"/"}>İşlemler</Link>
+                  <div className=" flex justify-center items-center gap-1 p-3 cursor-pointer rounded">
+                    <Link to={"/"}>
+                      <img className=" w-10 h-10 rounded-full" src={profileImage} alt="" />
+                    </Link>
                     {
                       operations ? (
                         <FaChevronUp  onClick={() => dispatch(operationFalse())}   className=" hover:scale-125 transition-all " />
@@ -86,7 +109,18 @@ const Navbar: React.FC = () => {
               ) : (null)
             }
 
-            </>
+              </>
+
+            {
+              isAuth ? (
+                <>
+                  <div onClick={handleClickLogout} className=" flex justify-center items-center gap-1  p-3 cursor-pointer rounded hover:text-orange-600 transition-all">
+                    <MdLogout size={24}/>
+                  </div>
+                  </>
+              ) : (null)
+            }
+           
           </nav>
 
           {sideBar ? (
@@ -101,8 +135,14 @@ const Navbar: React.FC = () => {
                 </div>
 
                 <div onClick={() => dispatch(operationTrue())} className=" flex justify-center items-center gap-1 bg-white border p-3 cursor-pointer rounded">
-                  <Link  to={"/"}>İşlemler</Link>
+                  <Link  to={"/"}>
+                    <img className=" w-10 h-10" src="https://www.shutterstock.com/image-vector/vector-flat-illustration-grayscale-avatar-600nw-2281862025.jpg" alt="" />
+                  </Link>
                   <FaChevronDown className=" " />
+                </div>
+
+                <div onClick={() => {}} className=" flex justify-center items-center gap-1 bg-white border p-3 cursor-pointer rounded">
+                  <MdLogout size={25}/>
                 </div>
               </nav>
               <div onClick={() => dispatch(sideBarFalse())} className="absolute w-full h-full top-0 left-0"></div>

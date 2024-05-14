@@ -4,7 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { IAuth } from '../types/type';
 import { useLoginMutation } from '../redux/services/authApi';
 import { message } from 'antd';
-import { createToken, isAuthTrue } from '../redux/slices/authSlice';
+import { createToken, isAuthTrue, saveUser } from '../redux/slices/authSlice';
 import { useAppDispatch } from '../redux/hooks';
 
 const LoginPage: React.FC = () => {
@@ -30,6 +30,7 @@ const LoginPage: React.FC = () => {
                 await message.success(res.message);
                 dispatch(isAuthTrue());
                 dispatch(createToken(res.token));
+                dispatch(saveUser(res.data));
                 navigate("/");
             })
             .catch((err) => {
