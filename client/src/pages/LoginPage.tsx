@@ -59,7 +59,7 @@ const LoginPage: React.FC = () => {
                 <div className=' flex justify-start w-1/2'>
                     <div className=' flex gap-x-3'>
                         <p className=' font-light'>Hesabın yok mu?</p>
-                        <Link className=' text-red-600 hover:scale-110 transition-all' to={"/register"}>Kayıt Ol</Link>
+                        <Link className=' text-red-600 hover:scale-110 transition-all' to={"/"}>Kayıt Ol</Link>
                     </div>
                 </div>
                 <div className=' flex flex-col gap-1 w-1/2 mx-auto'>

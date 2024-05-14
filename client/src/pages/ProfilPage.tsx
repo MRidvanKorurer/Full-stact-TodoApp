@@ -10,10 +10,9 @@ const ProfilPage: React.FC = () => {
   const dispatch = useAppDispatch();
   
 
-  // console.log(typeof token);
   console.log(token);
 
-  // console.log(data);
+
   let content;
 
   if(isLoading) {

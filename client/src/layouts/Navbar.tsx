@@ -9,6 +9,7 @@ import { FaChevronUp } from "react-icons/fa";
 
 const Navbar: React.FC = () => {
   const { sideBar, operations } = useAppSelector((state) => state.navbar);
+  const {isAuth} = useAppSelector(state => state.auth);
   const dispatch = useAppDispatch();
 
   return (
@@ -29,18 +30,31 @@ const Navbar: React.FC = () => {
             <div className=" hover:bg-orange-600 hover:text-white  p-3 rounded transition-all bg-white cursor-pointer w-24 flex justify-center items-center ">
               <Link to={"/"}>İletişim</Link>
             </div>
-
-            <div className=" flex justify-center items-center gap-1 bg-white border p-3 cursor-pointer rounded">
-              <Link to={"/"}>İşlemler</Link>
+              
+              <>
               {
-                operations ? (
-                  <FaChevronUp  onClick={() => dispatch(operationFalse())}   className=" hover:scale-125 transition-all " />
+                isAuth ? (
+                  <div className=" flex justify-center items-center gap-1 bg-white border p-3 cursor-pointer rounded">
+                    <Link to={"/"}>İşlemler</Link>
+                    {
+                      operations ? (
+                        <FaChevronUp  onClick={() => dispatch(operationFalse())}   className=" hover:scale-125 transition-all " />
+                      ) : (
+                        <FaChevronDown  onClick={() => dispatch(operationTrue())}  className=" hover:scale-125 transition-all" />
+                      )
+                    }   
+                  </div>
                 ) : (
-                  <FaChevronDown  onClick={() => dispatch(operationTrue())}  className=" hover:scale-125 transition-all" />
+                  <>
+                  <div className=" hover:bg-orange-600 hover:text-white  p-3 transition-all bg-white cursor-pointer w-full flex justify-center items-center ">
+                    <Link onClick={() => dispatch(operationFalse())} to={"/login"}>Giriş Yap</Link>
+                  </div>
+                  <div className=" hover:bg-orange-600 hover:text-white  p-3 transition-all bg-white cursor-pointer w-full flex justify-center items-center ">
+                    <Link onClick={() => dispatch(operationFalse())} to={"/register"}>Kayıt Ol</Link>
+                  </div>
+                  </>
                 )
               }
-              
-            </div>
 
             {
               operations ? (
@@ -71,6 +85,8 @@ const Navbar: React.FC = () => {
                 </> 
               ) : (null)
             }
+
+            </>
           </nav>
 
           {sideBar ? (

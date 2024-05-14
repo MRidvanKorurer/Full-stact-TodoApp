@@ -5,8 +5,11 @@ import MainLayout from "./layouts/MainLayout";
 import ProfilPage from "./pages/ProfilPage";
 import RegisterPage from "./pages/RegisterPage";
 import LoginPage from "./pages/LoginPage";
+import { useAppSelector } from "./redux/hooks";
 
 function App() {
+  const { isAuth } = useAppSelector((state) => state.auth);
+
   return (
     <>
       <BrowserRouter>
