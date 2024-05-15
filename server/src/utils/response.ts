@@ -1,12 +1,12 @@
 import { Response } from "express";
-import {IAuth} from "../types/type";
+import {IAuth, ITask} from "../types/type";
 
 class IResponse {
     message: string | null;
-    data: IAuth | null
+    data: IAuth | ITask | null
     token?: string 
 
-    constructor(message: string | null = null, data: IAuth | null = null, token?: string) {
+    constructor(message: string | null = null, data: IAuth | ITask | null = null, token?: string) {
         this.message = message;
         this.data = data
         this.token = token

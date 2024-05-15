@@ -42,7 +42,13 @@ const authSlice = createSlice({
        },
        getUser: (state) => {
         if(localStorage.getItem("user")) {
-            state.user = JSON.parse(localStorage.getItem("user"));
+            const user = JSON.parse(localStorage.getItem("user"));
+
+            state.user.name = user.name;
+            state.user.email = user.email;
+            state.user.password = user.password;
+            state.user.avatar = user.avatar;
+            
             state.isAuth = true;
         }
        },

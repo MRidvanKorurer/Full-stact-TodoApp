@@ -11,3 +11,17 @@ export interface IAuthRes {
     data: IAuth,
     token?: string | undefined
 }
+
+
+export interface ITask {
+    title: string,
+    description: string,
+    image: string,
+    user: IAuth
+}
+
+
+export interface ITaskRes {
+    message: string,
+    data: ITask[]
+}

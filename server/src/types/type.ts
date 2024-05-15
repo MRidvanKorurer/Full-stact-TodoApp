@@ -7,3 +7,14 @@ export interface IAuth extends Document {
     avatar: string
 }
 
+
+
+export interface ITask extends Document {
+    user: IAuth,
+    title: string,
+    description: string,
+    image: string
+}
+
+
+

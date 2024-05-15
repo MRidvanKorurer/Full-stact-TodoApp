@@ -5,10 +5,10 @@ import MainLayout from "./layouts/MainLayout";
 import ProfilPage from "./pages/ProfilPage";
 import RegisterPage from "./pages/RegisterPage";
 import LoginPage from "./pages/LoginPage";
-import { useAppSelector } from "./redux/hooks";
+import TasksPage from "./pages/TasksPage";
+import CreateTaskPage from "./pages/CreateTaskPage";
 
 function App() {
-  // const { isAuth } = useAppSelector((state) => state.auth);
 
   return (
     <>
@@ -19,6 +19,8 @@ function App() {
             <Route path="/profile" element={<ProfilPage />} />
             <Route path="/register" element={<RegisterPage />} />
             <Route path="/login" element={<LoginPage />} />
+            <Route path="/tasks" element={<TasksPage />} />
+            <Route path="/createTask" element={<CreateTaskPage />} />
           </Routes>
         </MainLayout>
       </BrowserRouter>

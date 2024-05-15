@@ -82,27 +82,27 @@ const Navbar: React.FC = () => {
             {
               operations ? (
                 <>
-                  <div className=" absolute right-6 top-20 shadow-xl rounded border w-48">
+                  <div className=" absolute right-32 top-24  shadow-xl rounded border w-48">
                     <div>
                       <div className=" hover:bg-orange-600 hover:text-white  p-3 transition-all bg-white cursor-pointer w-full flex justify-center items-center ">
                         <Link onClick={() => dispatch(operationFalse())} to={"/profile"}>Profil</Link>
                       </div>
 
                       <div className=" hover:bg-orange-600 hover:text-white  p-3 transition-all bg-white cursor-pointer w-full flex justify-center items-center ">
-                        <Link to={"/"}>Notlarım</Link>
+                        <Link to={"/tasks"}>Notlarım</Link>
                       </div>
 
                       <div className=" hover:bg-orange-600 hover:text-white  p-3 transition-all bg-white cursor-pointer w-full flex justify-center items-center ">
-                        <Link to={"/"}>Not Ekle</Link>
+                        <Link to={"/createTask"}>Not Ekle</Link>
                       </div>
 
-                      <div className=" hover:bg-orange-600 hover:text-white  p-3 transition-all bg-white cursor-pointer w-full flex justify-center items-center ">
+                      {/* <div className=" hover:bg-orange-600 hover:text-white  p-3 transition-all bg-white cursor-pointer w-full flex justify-center items-center ">
                         <Link to={"/"}>Not Sil</Link>
-                      </div>
+                      </div> */}
 
-                      <div className=" hover:bg-orange-600 hover:text-white  p-3 transition-all bg-white cursor-pointer w-full flex justify-center items-center ">
+                      {/* <div className=" hover:bg-orange-600 hover:text-white  p-3 transition-all bg-white cursor-pointer w-full flex justify-center items-center ">
                         <Link to={"/"}>Not Düzenle</Link>
-                      </div>
+                      </div> */}
                     </div>
                   </div>
                 </> 

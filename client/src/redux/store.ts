@@ -3,17 +3,21 @@ import { setupListeners } from '@reduxjs/toolkit/query'
 import { authApi } from './services/authApi'
 import { navbarReducer } from './slices/navbarSlice'
 import { authReducer } from './slices/authSlice'
+import { taskReducer } from './slices/taskSlice'
+import { taskApi } from './services/taskApi'
 
 
 export const store = configureStore({
   reducer: {
     navbar: navbarReducer,
     auth: authReducer,
+    task: taskReducer,
     [authApi.reducerPath]: authApi.reducer,
+    [taskApi.reducerPath]: taskApi.reducer
   },
 
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(authApi.middleware),
+    getDefaultMiddleware().concat(authApi.middleware).concat(taskApi.middleware),
 })
 
 

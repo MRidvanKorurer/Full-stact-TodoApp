@@ -11,7 +11,7 @@ const ProfilPage: React.FC = () => {
   const dispatch = useAppDispatch();
   
 
-  console.log(data);
+  // console.log(data);
 
 
   let content;
@@ -30,7 +30,7 @@ const ProfilPage: React.FC = () => {
             <img src={data?.data.avatar} alt="profilImage" className=' rounded-full hover:scale-110 transition-all'/>
           </div>
 
-          <div className=' flex flex-col gap-10 font-bold'>
+          <div className=' flex flex-col gap-10 font-bold p-4  rounded-xl'>
             <div className=' flex justify-between'>
               <p className=' w-52'>İsim: </p>
               <p>{data?.data.name}</p>
