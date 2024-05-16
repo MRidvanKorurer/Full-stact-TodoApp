@@ -14,9 +14,11 @@ export interface IAuthRes {
 
 
 export interface ITask {
+    _id?: string,
     title: string,
     description: string,
     image: string,
+    createdAt: string,
     user: IAuth
 }
 

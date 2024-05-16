@@ -6,7 +6,7 @@ import Loading from '../components/Loading';
 const TasksPage: React.FC = () => {
   const {data, isLoading} = useGetAllTaskQuery();
 
-  console.log(data,"data");
+  // console.log(data,"data");
 
   let content;
 
@@ -18,8 +18,10 @@ const TasksPage: React.FC = () => {
     )
   }else {
     content = (
-      data?.data.map((item, i) => (
-        <TaskItem key={i} item={item}/>
+      data?.data.map((item) => (
+        <div className=' flex flex-col justify-center items-center my-14'>
+          <TaskItem key={item._id} item={item}/>
+        </div>
       ))
     )
   }
